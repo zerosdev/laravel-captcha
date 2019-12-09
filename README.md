@@ -56,7 +56,7 @@ $image = $captcha->image();
 
 // print html image, used in blade template
 {{ $captcha->html_image(['onclick' => 'jsFunction()', 'style' => 'border:1px solid #ddd']) }}
-// return: &lt;image src="data:image/png; base64,XXXXXXXXXXXXXX" onclick="jsFunction()" style="border:1px solid #ddd"&gt;
+// return: &lt;img src="data:image/png; base64,XXXXXXXXXXXXXX" onclick="jsFunction()" style="border:1px solid #ddd" /&gt;
 </code></pre>
 
 ## Validation
