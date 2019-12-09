@@ -190,8 +190,8 @@ class Captcha
 			$xCoordinate = $i == 0 ? $padding : ($i*$spacing)+$padding;
 			$lineHeight = ($this->height/2) + ($font_size/2);
 
-			imagettftext($image, $font_size, $angle, $xCoordinate, $lineHeight, $shadow_color, $this->font, $letter);
-			imagettftext($image, $font_size, $angle, $xCoordinate, $lineHeight, $text_color, $this->font, $letter);
+			imagettftext($image, $font_size, $angle, $xCoordinate, $lineHeight, $shadow_color, $this->fontPath, $letter);
+			imagettftext($image, $font_size, $angle, $xCoordinate, $lineHeight, $text_color, $this->fontPath, $letter);
 			$word .= $letter;
 		}
 
