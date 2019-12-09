@@ -17,6 +17,12 @@ class ServiceProvider extends LaravelServiceProvider
         $this->publishes([
             dirname(__DIR__).'/config.php' => config_path('captcha.php'),
         ]);
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ZerosDev\LaravelCaptcha\Commands\Font::class,
+            ]);
+        }
     }
 
     /**
