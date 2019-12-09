@@ -41,7 +41,7 @@ class Font extends Command
 		$fontPath = dirname(__DIR__, 2).'/storage/fonts';
 		$import = $this->option('import');
 
-		$validExt = ['ttf', 'woff', 'woff2', 'eot'];
+		$validExt = ['ttf'];
 
 		if( !file_exists($fontPath) || !is_dir($fontPath) ) {
 			return $this->error("Directory {$fontPath} is not exists or is not readable!");
@@ -75,6 +75,8 @@ class Font extends Command
 		}
 		else
 		{
+			$u = preg_replace('/\?.*/', '', $import);
+
 			if( !filter_var($import, FILTER_VALIDATE_URL) )
 			{
 				if( !file_exists($import) ) {
@@ -86,13 +88,13 @@ class Font extends Command
 				}
 			}
 
-			$ext = pathinfo(strtolower($import), PATHINFO_EXTENSION);
+			$ext = pathinfo(strtolower($u), PATHINFO_EXTENSION);
 
 			if( !in_array($ext, $validExt) ) {
 				return $this->error("Unsupported font format. Please use one of supported font format: " . implode(", ", $validExt));
 			}
 
-			$fileName = basename($import);
+			$fileName = basename($u);
 
 			if( false !== ($f = file_get_contents($import)) )
 			{

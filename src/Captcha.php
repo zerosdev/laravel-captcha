@@ -96,6 +96,11 @@ class Captcha
 		}
 	}
 
+	public function getInstance()
+	{
+		return new self();
+	}
+
 	/**
 	*	
 	* Set the character list
@@ -257,7 +262,7 @@ class Captcha
 	
 	public function form_field($captchaId = null, $elementId = 'captcha_id')
 	{
-		return HtmlString('<input type="hidden" id="'.$elementId.'" name="captcha_id" value="'.($captchaId ? $captchaId : $this->id).'">');
+		return (new HtmlString('<input type="hidden" id="'.$elementId.'" name="captcha_id" value="'.($captchaId ? $captchaId : $this->id).'">'));
 	}
 	
 	/**
@@ -281,7 +286,7 @@ class Captcha
 		
 		$html .= '/>';
 
-		return HtmlString($html);
+		return (new HtmlString($html));
 	}
 
 	/**
