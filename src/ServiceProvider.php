@@ -20,7 +20,7 @@ class ServiceProvider extends LaravelServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                ZerosDev\LaravelCaptcha\Commands\Font::class,
+                Commands\Font::class,
             ]);
         }
     }

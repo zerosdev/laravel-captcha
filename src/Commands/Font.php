@@ -44,13 +44,13 @@ class Font extends Command
 		$validExt = ['ttf', 'woff', 'woff2', 'eot'];
 
 		if( !file_exists($fontPath) || !is_dir($fontPath) ) {
-			return "Directory {$fontPath} is not exists or is not readable!";
+			return $this->error("Directory {$fontPath} is not exists or is not readable!");
 		}
 
 		if( empty($import) )
 		{
 			if( ($od = opendir($fontPath)) === false ) {
-				return "Failed to open directory: {$fontPath}";
+				return $this->error("Failed to open directory: {$fontPath}");
 			}
 
 			$files = [];
@@ -59,19 +59,37 @@ class Font extends Command
 			{
 				$originalName = $file;
 				$loweredName = strtolower($file);
+				$ext = pathinfo($loweredName, PATHINFO_EXTENSION);
 
-				if( in_array(substr($loweredName, -3), $validExt) )
+				if( in_array($ext, $validExt) )
 				{
 					$files[] = $originalName;
 				}
 			}
 
-			return implode("\n", $files);
+			$i = 1;
+			foreach( $files as $file ) {
+				$this->line("{$i}. ".$file);
+				$i++;
+			}
 		}
 		else
 		{
-			if( !in_array(substr($import, -3), $validExt) ) {
-				return "Unsupported font format. Please use one of supported font format: " . implode(", ", $validExt);
+			if( !filter_var($import, FILTER_VALIDATE_URL) )
+			{
+				if( !file_exists($import) ) {
+					return $this->error("{$import} is not exists or is not readable!");
+				}
+
+				if( !is_file($import) ) {
+					return $this->error("{$import} is not valid file or is not readable!");
+				}
+			}
+
+			$ext = pathinfo(strtolower($import), PATHINFO_EXTENSION);
+
+			if( !in_array($ext, $validExt) ) {
+				return $this->error("Unsupported font format. Please use one of supported font format: " . implode(", ", $validExt));
 			}
 
 			$fileName = basename($import);
@@ -81,15 +99,15 @@ class Font extends Command
 				@file_put_contents($fontPath.'/'.$fileName, $f);
 
 				if( !file_exists($fontPath.'/'.$fileName) || !is_file($fontPath.'/'.$fileName) ) {
-					return "Failed to import font";
+					return $this->error("Failed to import font");
 				}
 			}
 			else
 			{
-				return "Failed to import font";
+				return $this->error("Failed to import font");
 			}
 
-			return "Import font success!";
+			return $this->info("Import font success!");
 		}
 	}
 }
