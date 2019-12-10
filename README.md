@@ -1,5 +1,5 @@
 # Laravel Captcha
-PHP Captcha Generator
+Laravel Captcha Generator
 
 ## Requirements
 - PHP 5.6+
