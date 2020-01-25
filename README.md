@@ -8,7 +8,7 @@ Laravel Captcha Generator
 
 ## Installation
 - Run
-<pre><code>composer require zerosdev/laravel-captcha</code></pre>
+<pre><code>composer require zerosdev/laravel-captcha:dev-master</code></pre>
 
 - Add this code to your **config/app.php** in providers array
 <pre><code>ZerosDev\LaravelCaptcha\ServiceProvider::class,</code></pre>
